@@ -1,0 +1,228 @@
+
+/* Styles for nav */
+
+header { background-color: transparent; position: fixed; width: 100%; z-index: 100; transition: all 0.4s ease}
+header nav { display: flex; align-items: center; color: var(--black); height: 10vh; margin: 0 auto; max-width: 1250px; width: 100%;justify-content: space-between;}
+header nav .logo { max-width: 200px; width: 100%; display: flex; align-items: center; justify-content: center;}
+header nav .logo a { display: flex; align-items: center; gap: 10px; color: var(--black); transition: all 0.5s;}
+header nav .logo a:hover { color: var(--red-clear); transform: scale(1.1) }
+header nav .logo a i { font-size: 30px;} 
+header nav .logo h2 { font-size: 25px; font-weight: 500;}
+header nav .logo h2 span { font-weight: 300;}
+header nav ul { display: flex; }
+header nav ul li { padding: 16px }
+header nav ul li a {font-family: Inter; color: var(--black); transition: all 0.5s; }
+header nav ul li a:hover { color: var(--red-clear); font-weight: 500; }
+header.scrolled { background-color: var(--red-clear); box-shadow: 0px 8px 8px 1px rgba(0, 0, 0, 0.2); }
+
+header nav ul li a.scrolled {color: var(--white);}
+header nav ul li a.scrolled:hover{ color: var(--black);}
+header nav .logo a.scrolled { color: var(--white); }
+header nav .logo a.scrolled:hover { color: var(--black); }
+
+.abrir-menu, .cerrar-menu { display: none }
+
+/* Section hero */
+
+.hero { display: flex; justify-content: center; width: 100%; }
+.hero .container { display: flex; align-items: center; max-width: 1250px; width: 100%; justify-content: space-around; }
+.hero .container .right { display: flex; flex-direction: column; gap: 30px; max-width: 750px; width: 100%; margin-top: 20px; }
+.hero .container .right h1 { font-weight: 800; font-size: 90px; color: var(--red-clear); text-shadow: -2px 2px 2px var(--black); }
+.hero .container .right .text { max-width: 650px; width: 100%; line-height: 1.3; }
+.hero .container .right .text p { font-family: Inter; font-size: 20px; }
+.hero .container .right .buttons { display: flex; width: 100%; justify-content: flex-start; gap: 40px; font-family: Arial; font-size: 20px; }
+.hero .container .left img { max-width: 400px; width: 100%; position: relative; top: -500px; animation: slideDown 1.5s forwards;}
+
+@keyframes slideDown { 0% { top: -500px } 100% { top: 0;} }
+
+/* Section Facts of spiderman */
+
+.facts-of-spiderman { display: flex; justify-content: center; }
+.facts-of-spiderman .container { max-width: 1250px; display: flex; flex-direction: column; align-items: center; transform: translateY(100px);}
+.facts-of-spiderman .container h2{ font-size: 55px; font-weight: 700; transform: translateY(30px);}
+.facts-of-spiderman .container .list-of-facts { background-color: var(--white); width: 100%; border-radius: 20px; box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.46); -webkit-box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.46); -moz-box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.46); display: flex; justify-content: center; flex-wrap: wrap; padding: 20px; gap: 40px; }
+.facts-of-spiderman .container .list-of-facts ul { display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 40px 0px }
+.facts-of-spiderman .container .list-of-facts ul li { width: 300px; padding: 50px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 30px} 
+.facts-of-spiderman .container .list-of-facts ul li h3 {font-weight: 700; }
+.facts-of-spiderman .container .list-of-facts ul li a { text-decoration: none; color: var(--black); font-weight: 700; transition: color 0.3s ease; }
+.facts-of-spiderman .container .list-of-facts ul li a:hover { color: var(--blue-clear)}
+.facts-of-spiderman .container .list-of-facts ul li a i { padding: 0px 8px; transition: transform 0.3s ease; }
+.facts-of-spiderman .container .list-of-facts ul li a:hover i { transform: scale(1.2);}
+
+.creation.reveal { opacity: 0; transform: translateX(100px); transition: all 0.7s ease; }
+.creation.reveal.active { opacity: 1; transform: translateX(0); }
+
+.identity.reveal { opacity: 0; transform: translateX(200px); transition: all 0.7s ease; transition-delay: 0.1s;}
+.identity.reveal.active { opacity: 1; transform: translateX(0); }
+
+.powers.reveal { opacity: 0; transform: translateX(300px); transition: all 0.7s ease; transition-delay: 0.2s;}
+.powers.reveal.active { opacity: 1; transform: translateX(0); }
+
+.multiverse.reveal { opacity: 0; transform: translateX(-100px); transition: all 0.7s ease; transition-delay: 0.2s;}
+.multiverse.reveal.active { opacity: 1; transform: translateX(0); }
+
+.villains.reveal { opacity: 0; transform: translateX(-200px); transition: all 0.7s ease; transition-delay: 0.1s;}
+.villains.reveal.active { opacity: 1; transform: translateX(0); }
+
+.film.reveal { opacity: 0; transform: translateX(-300px); transition: all 0.7s ease; }
+.film.reveal.active { opacity: 1; transform: translateX(0); }
+
+.popup-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; }
+.popup-content { position: absolute; top: 50%; left: 50%; padding: 30px; transform: translate(-50%, -50%); max-width: 80%; max-height: 80%; overflow: auto; text-align: center; }
+
+.close-button { position: absolute; top: 10px; right: 10px; font-size: 30px; cursor: pointer; color: var(--red-cle); }
+
+
+/* Section tastes */
+
+.tastes { background: linear-gradient(var(--red-clear), var(--red-dark)); height: 80vh; }
+.tastes .container { display: flex; justify-content: center; align-items: center; height: 100%; font-size: 50px; font-weight: 700; color: var(--white);}
+
+/* Section bests spidermans */
+
+.bests-spidermans .container { max-width: 1250px; width: 100%; display: flex; justify-content: space-between; margin: 0 auto; transform: translateY(-100px); flex-wrap: wrap;}
+.bests-spidermans .container .figure-container { position: relative; max-width:500px; height: auto; width: 100%; }
+.bests-spidermans .container .figure-container img {width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+.bests-spidermans .container .figure-container .figcaption-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); color: white; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s ease; border-radius: 20px; font-size: 20px; font-family: Montserrat; font-weight: 600; }
+.bests-spidermans .container .figure-container:hover .figcaption-overlay { opacity: 1; cursor:pointer; }
+
+.bests-spidermans .container .reveal { opacity: 0; transform: translateY(150px); transition: all 0.7s ease; }
+  
+.bests-spidermans .container .reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Section phrase to remember */
+
+.remember { background-image: url(../img/spider-background.jpeg); background-repeat: no-repeat;background-position:10% 90%; background-color: var(--black); height: 80vh; display: flex; justify-content: center;}
+.remember .container { width: 1250px; display: flex; justify-content: flex-end; align-items: center; }
+.remember .container h2{ max-width: 700px; font-size: 50px; font-weight: 700; text-align: end; color: var(--white); }
+
+/* Section gallery */
+
+.gallery { height: 80vh; display: flex; align-items: center; justify-content: center; }
+.gallery .container { max-width: 1250px; width: 100%; }
+
+.gallery .container .swiper { width: 80%; height: 70vh; }
+.gallery .container .swiper .swiper-wrapper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px }
+.swiper-cards .swiper-slide { border-radius: 10px; }
+.swiper .swiper-button-prev, .swiper .swiper-button-next { --swiper-navigation-size: 20px; padding: 0px; color: rgb(0, 0, 0); transition: all 0.3s; border-radius: 50%; width: 50px; height: 50px;}
+.swiper .swiper-button-prev:hover, .swiper .swiper-button-next:hover { --swiper-navigation-size: 20px; background-color: var(--white); }
+
+/* Footer */
+
+footer { background-color: var(--black-clear); color: var(--white); padding-top: 50px; }
+footer .container { max-width: 1250px; margin: auto; }
+footer .container img { width: 250px; padding-bottom: 30px; }
+footer .container .info { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 50px }
+footer .container .info ul { list-style: none; padding: 0; margin: 0 20px 0 0; font-family: Inter; font-size: 18px; }
+footer .container .info ul li { margin-bottom: 50px; }
+footer .container .info ul li a { color: var(--white); text-decoration: none; transition: all 0.3s;}
+footer .container .info ul li a:hover {color: var(--red-dark); font-weight:600;}
+footer .container .form-container { max-width: 400px; width: 100%; }
+footer .container .form-container h2 { text-align: left; margin-bottom: 20px; font-size: 22px; font-weight: 700; }
+footer .container .form-container form { display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px; }
+footer .container .form-container form input, footer .container .form-container form textarea { width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 7px; box-sizing: border-box; outline: none; color: var(--white); background-color: transparent }
+footer .container .form-container form input:focus, footer .container .form-container form textarea:focus { border-color: var(--red-clear); }
+footer .container .form-container form textarea { grid-column: span 2; height: 100px; resize: none; }
+footer .container .form-container button { grid-column: span 2; padding: 10px; background-color: var(--red-clear); color: var(--white); border: none; border-radius: 7px; cursor: pointer; margin-top: 10px; transition: all 0.3s; }
+footer .container .form-container button:hover { background-color: var(--red-dark); }
+footer .copyright { background-color: var(--black); display: flex; justify-content: space-between; align-items: center; margin-top: 50px; padding: 20px 70px; color: var(--white); }
+footer .copyright .networks { max-width: 200px; width: 100%; display: flex; justify-content: space-around; flex-wrap: wrap;}
+footer .copyright .networks img { max-width: 25px; width: 100%; }
+
+/* Responsive */
+
+
+@media (max-width: 1280px) {
+    .hero .container {max-width: 900px;}
+    .hero .container .right h1 { font-size: 70px;}
+    .hero .container .right .text { max-width: 500px; width: 100%; }
+    .hero .container .right .text p { font-size: 18px; }
+    
+    .facts-of-spiderman .container .list-of-facts { max-width: 900px; }
+
+    .bests-spidermans .container { max-width: 900px; }
+    .bests-spidermans .container img { max-width: 400px; max-height: 400px;}
+    
+    .remember .container { max-width: 900px}
+    .remember .container h2 { font-size: 40px; max-width: 600px;}
+
+    footer .container { max-width: 900px }
+}
+
+/* Breakpoint 1024px */
+@media (max-width: 1024px) {
+    nav { padding: 20px 50px;}
+    nav img { max-width: 150px; width: 100%;}
+
+    .abrir-menu, .cerrar-menu { display: block; border: 0; font-size: 1.25rem; background-color: transparent; cursor: pointer; }
+    .abrir-menu { color: #1c1c1c; }
+    .cerrar-menu { color: #ececec; }
+
+    .nav { opacity: 0; visibility: hidden; display: flex; flex-direction: column; gap: 1rem; position: absolute; top: 0; left: 0; bottom: 0; background-color: var(--red-clear); padding: 2rem; box-shadow: 0 0 0 100vmax var(--red-clear); z-index: 150; transform: translateX(-100%); transition: transform 0.3s ease; }
+    .nav.visible { opacity: 1; visibility: visible; transform: translateX(0); }
+    .nav-list { flex-direction: column; }
+    .nav-list li a { color: #ecececec; transition: color 0.5s; }
+    .nav-list li a:hover { color:#ccc}
+
+    .hero .container {max-width: 800px;}
+    .hero .container .right h1 { font-size: 60px;}
+    .hero .container .right .text { max-width: 400px; width: 100%; }
+    .hero .container .right .text p { font-size: 16px; }
+
+    .facts-of-spiderman { margin-top: 100px;}
+    .facts-of-spiderman .container { max-width: 1250px; display: flex; flex-direction: column; align-items: center; transform: translateY(0px);}
+
+    .bests-spidermans .container { padding: 0px 20px; justify-content: center; gap: 50px; transform: translateY(-50px); }    
+    .facts-of-spiderman .container h2{ font-size: 45px; font-weight: 700; transform: translateY(0px);}
+    .facts-of-spiderman .container .list-of-facts ul {gap: 20px; flex-wrap: wrap; margin: 40px 0px }
+    .facts-of-spiderman .container .list-of-facts{ border-radius: 0; box-shadow: none; background-color: transparent; border: none; padding: 0px; gap: 20px}
+    
+    .tastes { height: 40vh; }
+    .tastes .container h2 { font-size: 40px; }
+
+    .bests-spidermans .container { padding: 0px 20px; justify-content: center; gap: 50px;}
+
+    .remember .container h2 { font-size: 40px; max-width: 500px;}
+
+    footer .container { max-width: 850px; width: 100%; padding: 0px 30px;}
+    footer .container img { max-width: 200px; width: 100%; }
+}
+
+/* Breakpoint 768px */
+@media (max-width: 768px) {
+    body { width: 100%;}
+
+    .hero .container { flex-direction: column-reverse ;}
+    .hero .container .left img {max-width: 300px;}
+
+    .bests-spidermans .container{ gap: 80px; flex-direction: column; align-items: center; } 
+
+    .remember { height: 70vh; background-position: 50% 100%;}
+    .remember .container { justify-content: center; align-items: end; padding-bottom: 20px;}
+    .remember .container h2{ max-width: 700px; font-size: 30px; font-weight: 700; text-align: center; color: var(--white); }
+
+    .gallery .container .swiper {
+        height:inherit
+    }
+
+    footer .container {max-width: 650px;}
+}
+
+/* Breakpoint 540px */
+@media (max-width: 540px) {
+
+    .hero .container {gap: 30px;}
+    .hero .container .right { text-align: center; align-items: center; }
+    .hero .container .right h1 { font-size: 50px;}
+    .hero .container .left img { max-width: 300px; gap: 30px; }
+    .hero .container .right .buttons { display: flex; width: 100%; justify-content: flex-start; gap: 30px; font-family: Arial; font-size: 20px; flex-direction: column; }
+    .hero .container .right .buttons .btn{ padding: 18px 60px; }
+    .facts-of-spiderman .container h2{ font-size: 30px;}
+    .tastes .container h2 { text-align: center; }
+
+    .facts-of-spiderman .container h2 { font-size: 30px; text-align: center; }
+
+    footer .container {max-width: none; width: 100%; padding: 0px 15px;}
+    footer .copyright { flex-direction: column-reverse; gap: 20px; }
+    footer .container .info .form-container { max-width: none; }
+}
