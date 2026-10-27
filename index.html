@@ -1,224 +1,659 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/styles/style.css">
-    <title>Spider Web</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/arania-icono.ico">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#130b10">
+    <title>Matt × Aguss — nuestro pequeño universo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg: #130b10;
+            --panel: #21131b;
+            --wine: #6f203d;
+            --pink: #f2b7c8;
+            --cream: #fff1f4;
+            --muted: #bda8b1;
+            --line: #ffffff1a
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--cream);
+            font-family: Manrope, sans-serif;
+            overflow-x: hidden
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .12;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+            z-index: 5
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 23px 6vw;
+            border-bottom: 1px solid var(--line);
+            font: 11px 'DM Mono', monospace;
+            letter-spacing: .14em;
+            text-transform: uppercase
+        }
+
+        .top a {
+            color: var(--muted);
+            text-decoration: none
+        }
+
+        .hero {
+            min-height: 88vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 70px 22px;
+            position: relative;
+            isolation: isolate
+        }
+
+        .orb {
+            position: absolute;
+            width: min(68vw, 600px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, #9e3153 0%, #4b1b31 35%, transparent 70%);
+            filter: blur(16px);
+            opacity: .6;
+            z-index: -1;
+            animation: breath 7s ease-in-out infinite
+        }
+
+        .eyebrow {
+            font: 11px 'DM Mono', monospace;
+            letter-spacing: .2em;
+            color: var(--pink);
+            text-transform: uppercase
+        }
+
+        .hero h1 {
+            font: clamp(54px, 10vw, 120px)/.98 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: -.055em;
+            margin: 26px 0
+        }
+
+        .hero h1 em {
+            color: var(--pink);
+            font-weight: 500
+        }
+
+        .hero p {
+            color: #d0bac3;
+            max-width: 440px;
+            line-height: 1.8;
+            margin: 0 auto 30px;
+            font-size: 14px
+        }
+
+        .btn {
+            border: 1px solid #d98ca6;
+            background: var(--pink);
+            color: #28111c;
+            border-radius: 99px;
+            padding: 14px 23px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .25s;
+            letter-spacing: .01em
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px #d34c7940
+        }
+
+        .ghost {
+            background: transparent;
+            color: var(--cream);
+            border-color: #ffffff45
+        }
+
+        .scroll {
+            position: absolute;
+            bottom: 24px;
+            font: 10px 'DM Mono';
+            letter-spacing: .18em;
+            color: #a8919c
+        }
+
+        .section {
+            padding: 100px 7vw;
+            max-width: 1200px;
+            margin: auto
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 35px
+        }
+
+        .section h2 {
+            font: clamp(38px, 6vw, 68px)/1.05 'Playfair Display', serif;
+            font-weight: 500;
+            margin: 12px 0 0;
+            letter-spacing: -.04em
+        }
+
+        .section h2 em {
+            color: var(--pink)
+        }
+
+        .small {
+            font: 10px 'DM Mono', monospace;
+            color: var(--muted);
+            letter-spacing: .16em;
+            text-transform: uppercase
+        }
+
+        .intro {
+            max-width: 430px;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 13px
+        }
+
+        .memories {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px
+        }
+
+        .memory {
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            overflow: hidden;
+            background: var(--panel);
+            cursor: pointer;
+            transition: .3s
+        }
+
+        .memory:hover {
+            transform: translateY(-5px);
+            border-color: #d98ca666
+        }
+
+        .photo {
+            height: 250px;
+            display: grid;
+            place-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, #4b1a31, #1a1017)
+        }
+
+        .photo:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 20%, #f0a4bb66, transparent 40%), linear-gradient(35deg, #10090e99, transparent)
+        }
+
+        .photo span {
+            font: italic 50px 'Playfair Display';
+            color: #fff8;
+            z-index: 1
+        }
+
+        .memory:nth-child(2) .photo {
+            background: linear-gradient(145deg, #73344d, #26101d)
+        }
+
+        .memory:nth-child(3) .photo {
+            background: linear-gradient(145deg, #37202c, #8a3b51)
+        }
+
+        .memory-copy {
+            padding: 17px
+        }
+
+        .memory-copy h3 {
+            font: 22px 'Playfair Display';
+            font-weight: 500;
+            margin: 0 0 7px
+        }
+
+        .memory-copy p {
+            font-size: 12px;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.7
+        }
+
+        .secret {
+            margin-top: 18px;
+            color: var(--pink);
+            font-size: 11px
+        }
+
+        .songbox {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 35px;
+            align-items: center;
+            background: linear-gradient(125deg, #2a1420, #1b1017);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: clamp(24px, 5vw, 55px)
+        }
+
+        .vinyl {
+            width: min(100%, 280px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            margin: auto;
+            background: repeating-radial-gradient(circle, #171116 0 3px, #28202a 4px 5px);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 20px 70px #0007;
+            animation: spin 16s linear infinite;
+            animation-play-state: paused
+        }
+
+        .vinyl.playing {
+            animation-play-state: running
+        }
+
+        .vinyl:before {
+            content: "";
+            position: absolute;
+            width: 75px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--wine);
+            border: 8px solid #d58da6
+        }
+
+        .vinyl:after {
+            content: "M ♥ A";
+            position: relative;
+            font: 11px 'DM Mono';
+            color: white;
+            z-index: 1
+        }
+
+        .songbox h3 {
+            font: clamp(30px, 4vw, 48px) 'Playfair Display';
+            font-weight: 500;
+            margin: 12px 0
+        }
+
+        .songbox p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8
+        }
+
+        .songcontrols {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 22px
+        }
+
+        .letter-wrap {
+            text-align: center;
+            background: radial-gradient(ellipse at center, #4b1a31 0%, #1a0d15 65%);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 70px 20px
+        }
+
+        .envelope {
+            font-size: 58px;
+            display: block;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 8px 20px #e16a9340);
+            animation: float 3s ease-in-out infinite
+        }
+
+        .letter {
+            display: none;
+            max-width: 570px;
+            margin: 30px auto 0;
+            padding: 28px;
+            text-align: left;
+            background: #fff0f4;
+            color: #341622;
+            border-radius: 5px;
+            box-shadow: 0 15px 60px #0004;
+            line-height: 1.9;
+            font: 17px/1.9 'Playfair Display', serif;
+            white-space: pre-line
+        }
+
+        .letter.show {
+            display: block;
+            animation: reveal .7s both
+        }
+
+        .final {
+            text-align: center;
+            padding: 100px 20px 70px
+        }
+
+        .final h2 {
+            font: clamp(42px, 8vw, 86px) 'Playfair Display';
+            font-weight: 500;
+            letter-spacing: -.04em;
+            margin: 20px 0
+        }
+
+        .final h2 em {
+            color: var(--pink)
+        }
+
+        footer {
+            padding: 25px 6vw;
+            border-top: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font: 10px 'DM Mono';
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: #090509eF;
+            z-index: 10;
+            display: none;
+            place-items: center;
+            padding: 20px
+        }
+
+        .modal.open {
+            display: grid
+        }
+
+        .modal-card {
+            max-width: 460px;
+            width: 100%;
+            background: #25141d;
+            border: 1px solid #ffffff25;
+            border-radius: 18px;
+            padding: 32px;
+            text-align: center;
+            animation: reveal .4s
+        }
+
+        .modal-card h3 {
+            font: 32px 'Playfair Display';
+            font-weight: 500
+        }
+
+        .modal-card p {
+            color: #d4bdc7;
+            line-height: 1.8;
+            font-size: 14px
+        }
+
+        .close {
+            float: right;
+            background: none;
+            border: 0;
+            color: white;
+            font-size: 24px;
+            cursor: pointer
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            background: #f2b7c8;
+            color: #28111c;
+            padding: 12px 18px;
+            border-radius: 99px;
+            z-index: 20;
+            font-size: 12px;
+            transition: .3s
+        }
+
+        .toast.on {
+            opacity: 1;
+            transform: translate(-50%, 0)
+        }
+
+        .heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9;
+            animation: heartfly 1.6s ease-out forwards;
+            color: #f2a4bc
+        }
+
+        @keyframes breath {
+            50% {
+                transform: scale(1.12);
+                opacity: .8
+            }
+        }
+
+        @keyframes float {
+            50% {
+                transform: translateY(-9px) rotate(-3deg)
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(.98)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes heartfly {
+            to {
+                transform: translateY(-130px) rotate(20deg) scale(.4);
+                opacity: 0
+            }
+        }
+
+        @media(max-width:700px) {
+            .memories {
+                grid-template-columns: 1fr
+            }
+
+            .photo {
+                height: 210px
+            }
+
+            .songbox {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .section {
+                padding: 75px 6vw
+            }
+
+            .section-head {
+                display: block
+            }
+
+            .intro {
+                margin-top: 18px
+            }
+
+            .top {
+                padding: 19px 5vw
+            }
+
+            .hero {
+                min-height: 82vh
+            }
+
+            .letter-wrap {
+                padding: 50px 16px
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header id="header">
-        <nav>
-            <div class="logo">
-                <a href="#">
-                    <i class="fa-solid fa-spider"></i>
-                    <h2>Spider<span>Web</span></h2>
-                </a>
+    <header class="top"><span>✳ Matt × Aguss</span><a href="#carta">una cosa para vos ↓</a></header>
+    <main>
+        <section class="hero" id="inicio">
+            <div class="orb"></div>
+            <div>
+                <div class="eyebrow">un pequeño universo nuestro · vol. 01</div>
+                <h1>Vos y yo.<br><em>Y todo lo demás.</em></h1>
+                <p>Hice este lugar para guardar algunas de las cosas que siento, los momentos que no quiero olvidar y
+                    todo lo que todavía nos queda por vivir.</p><button class="btn" id="enter">entrar a nuestro mundo
+                    ↗</button>
             </div>
-            <div id="abrir" class="abrir-menu">Abrir</div>
-            <div class="nav" id="nav">
-                <div class="cerrar-menu" id="cerrar">Cerrar</div>
-                <ul class="nav-list">
-                    <li>
-                        <a href="#hero">Home</a>
-                    </li>
-                    <li>
-                        <a href="#facts"> Facts </a>
-                    </li>
-                    <li>
-                        <a href="#tastes"> Tastes </a>
-                    </li>
-                    <li>
-                        <a href="#remember"> Remember </a>
-                    </li>
-                    <li>
-                        <a href="#footer"> Contact </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <section id="hero" class="hero">
-        <div class="container">
-            <div class="right">
-                <h1> SPIDER-MAN </h1>
-                <div class="text">
-                    <p>
-                        Spider-Man is a superhero who fights
-                        crime in New York after acquiring spider powers thanks to the bite of a radioactive spider.
-                    </p>
+            <div class="scroll">DESLIZÁ DESPACIO ↓</div>
+        </section>
+        <section class="section" id="historia">
+            <div class="section-head">
+                <div>
+                    <div class="small">01 / nuestros archivos</div>
+                    <h2>Pequeñas cosas,<br><em>grandes recuerdos.</em></h2>
                 </div>
-                <div class="buttons">
-                    <button class="btn">nosequeponer</button>
-                    <button class="btn secondary">acatampoco</button>
+                <p class="intro">Hay momentos que desde afuera parecen normales, pero para mí se quedan guardados para
+                    siempre. Tocá cada tarjeta: escondí algo en ellas.</p>
+            </div>
+            <div class="memories">
+                <article class="memory"
+                    data-secret="No sé si te lo digo lo suficiente, pero hay días que se vuelven mejores simplemente porque estás vos en ellos.">
+                    <div class="photo"><span>01</span></div>
+                    <div class="memory-copy">
+                        <h3>Un día cualquiera</h3>
+                        <p>De esos que quiero repetir mil veces.</p>
+                        <div class="secret">✳ tocar para descubrir</div>
+                    </div>
+                </article>
+                <article class="memory"
+                    data-secret="Mi parte favorita no siempre es lo que hacemos. Muchas veces es simplemente estar con vos, sin tener que hacer nada especial.">
+                    <div class="photo"><span>02</span></div>
+                    <div class="memory-copy">
+                        <h3>Mi lugar favorito</h3>
+                        <p>A veces un lugar es una persona.</p>
+                        <div class="secret">✳ tocar para descubrir</div>
+                    </div>
+                </article>
+                <article class="memory"
+                    data-secret="Esto no es ni cerca todo lo que quiero vivir con vos. Es apenas el comienzo de nuestro archivo de recuerdos.">
+                    <div class="photo"><span>03</span></div>
+                    <div class="memory-copy">
+                        <h3>Lo que viene</h3>
+                        <p>Hay muchas primeras veces esperándonos.</p>
+                        <div class="secret">✳ tocar para descubrir</div>
+                    </div>
+                </article>
+            </div>
+            <p class="small" style="margin-top:18px">Pista: después podemos reemplazar estas tarjetas por fotos reales
+                de ustedes.</p>
+        </section>
+        <section class="section" id="cancion">
+            <div class="small">02 / banda sonora</div>
+            <h2>Si nosotros<br><em>fuéramos una canción.</em></h2>
+            <div class="songbox" style="margin-top:30px">
+                <div class="vinyl" id="vinyl"></div>
+                <div>
+                    <div class="eyebrow">la canción de nosotros</div>
+                    <h3>Esta parte es tuya.</h3>
+                    <p>Elegí el tema que te haga pensar en ella. Por ahora, este espacio está esperando su canción
+                        especial. Podés abrir el reproductor de tu música favorita y darle play.</p>
+                    <div class="songcontrols"><button class="btn" id="songBtn">▶ reproducir nuestra
+                            canción</button><button class="btn ghost" id="songEdit">poner link de canción</button></div>
+                    <p class="small" id="songStatus">todavía falta elegir el tema ✳</p>
                 </div>
             </div>
-            <div class="left">
-                <img src="assets/img/spidey-colgando.png" alt="">
-            </div>
-        </div>
-    </section>
-    <section class="facts-of-spiderman" id="facts">
-        <div class="container">
-            <h2>
-                Facts about Spider-man
-                <i class="icon-icons8-spider-man-antiguo-1"></i>
-            </h2>
-            <div class="list-of-facts">
-                <ul>
-                    <li data-modal="creation" class="creation reveal">
-                        <h3>Creation and First Appearance</h3>
-                        <p>Spider-Man was created by writer Stan Lee and artist Steve Ditko.</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/embed/tgbNymZ7vqY')">Show more <i
-                                class="fa-solid fa-person"></i></i></a>
-                    </li>
-                    <li data-modal="identity" class="identity reveal">
-                        <h3>Secret identity</h3>
-                        <p>Spider-Man's secret identity is...</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/embed/tgbNymZ7vqY')">Show more <i
-                                class="fa-solid fa-user-secret"></i> </a>
-                    </li>
-                    <li data-modal="powers" class="powers reveal">
-                        <h3>Powers and Abilities</h3>
-                        <p>Spider-Man possesses superhuman strength, agility.</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/watch?v=WZIvB_C8GB8')">Show more <i
-                                class="fa-solid fa-spider"></i> </a>
-                    </li>
-                    <li data-modal="multiverse" class="multiverse reveal">
-                        <h3>Multiverse and Alternate Versions</h3>
-                        <p>Spider-Man has many alternate versions in the Marvel multiverse.</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/watch?v=uKOE1BBda-E')">Show more <i
-                                class="fa-solid fa-globe"></i> </a>
-                    </li>
-                    <li data-modal="villains" class="villains reveal">
-                        <h3>Iconic Villains</h3>
-                        <p>Spider-Man has faced many villains over the years</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/watch?v=fkFsQNsikkQ')">Show more <i
-                                class="fa-brands fa-optin-monster"></i></a>
-                    </li>
-                    <li data-modal="film" class="film reveal">
-                        <h3>Film Adaptations</h3>
-                        <p>Spider-Man has appeared in numerous films.</p>
-                        <a href="javascript:void(0)"
-                            onclick="showPopup('https://www.youtube.com/embed/tgbNymZ7vqY')">Show more <i
-                                class="fa-solid fa-film"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
+        </section>
+        <section class="section" id="carta">
+            <div class="letter-wrap"><span class="envelope">✉</span>
+                <div class="small">03 / solo para aguss</div>
+                <h2>Hay algo que<br><em>quiero que leas.</em></h2>
+                <p class="intro" style="margin:18px auto 25px">No hace falta una fecha especial para recordarte lo
+                    importante que sos.</p><button class="btn" id="openLetter">abrir tu carta secreta ♥</button>
+                <div class="letter" id="letter">Aguss,
 
-    <div class="popup-container" id="popupContainer">
-        <div class="popup-content">
-            <span class="close-button" onclick="closePopup()">&times;</span>
-            <iframe id="popupVideo" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    No sabía muy bien cómo regalarte algo que fuera realmente nuestro, así que hice este pequeño rincón
+                    en internet.
+
+                    Quería que tuvieras un lugar al que volver, lleno de detalles que te recuerden que pienso en vos. No
+                    tiene que ser perfecto; solo tiene que ser nuestro.
+
+                    Gracias por ser parte de mis días, por las cosas chiquitas y por todas las que todavía nos faltan
+                    vivir. Ojalá algún día miremos todo esto y nos riamos de lo mucho que cambió desde ahora.
+
+                    Te elijo en los días especiales y también en los más normales. Esos, al final, son los que más
+                    quiero compartir con vos.
+
+                    Con amor,
+                    Matt ♥</div>
+            </div>
+        </section>
+        <section class="final">
+            <div class="eyebrow">fin de esta página, no de la historia</div>
+            <h2>Mi lugar favorito<br><em>sigue siendo con vos.</em></h2><button class="btn ghost" id="surprise">no
+                toques esto 👀</button>
+            <p class="small" style="margin-top:30px">M + A · en construcción, como todas las cosas lindas</p>
+        </section>
+    </main>
+    <footer><span>hecho por matt, para aguss</span><span>un universo chiquito · infinito por dentro</span></footer>
+    <div class="modal" id="modal">
+        <div class="modal-card"><button class="close" id="close">×</button>
+            <div style="font-size:42px">♥</div>
+            <h3>Te encontré.</h3>
+            <p>Si llegaste hasta acá, te ganaste otro abrazo mío. Guardá esta página, porque todavía le vamos a agregar
+                más pedacitos de nosotros.</p><button class="btn" id="moreHearts">mandar amor ✳</button>
         </div>
     </div>
-
-    <section id="tastes" class="tastes">
-        <div class="container">
-            <h2 class="reveal">
-                Tastes are tastes but
-            </h2>
-        </div>
-    </section>
-    <section class="bests-spidermans">
-        <div class="container">
-            <figure class="figure-container">
-                <img src="assets/img/spiderpunk.jpeg" class="reveal" alt="Spiderpunk">
-                <figcaption class="figcaption-overlay">The drippiest spiderman</figcaption>
-            </figure>
-            <figure class="figure-container">
-                <img src="assets/img/spiderman-616.jpeg" class="reveal" alt="Spiderman earth 616">
-                <figcaption class="figcaption-overlay">The best spiderman</figcaption>
-            </figure>
-        </div>
-    </section>
-    <section class="remember" id="remember">
-        <div class="container">
-            <h2>
-                “With great power comes great responsibility"
-            </h2>
-        </div>
-    </section>
-    <section class="gallery">
-        <div class="container">
-            <div class="swiper">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide"><img src="assets/img/gallery-1.jpg" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/gallery-2.jpg" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/gallery-3.jpeg" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/gallery-4.jpg" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/gallery-5.jpg" alt=""></div>
-                    <div class="swiper-slide"><img src="assets/img/gallery-6.jpg" alt=""></div>
-                </div>
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-        </div>
-    </section>
-    <footer id="footer">
-        <div class="container">
-            <img src="assets/img/SpiderWeb.png" alt="Logo SpiderWeb">
-            <div class="info">
-                <ul>
-                    <li>
-                        <a href="#hero">Home</a>
-                    </li>
-                    <li>
-                        <a href="#facts"> Facts </a>
-                    </li>
-                    <li>
-                        <a href="#tastes"> Tastes </a>
-                    </li>
-                    <li>
-                        <a href="#remember"> Remember </a>
-                    </li>
-                    <li>
-                        <a href="#footer"> Contact </a>
-                    </li>
-                </ul>
-                <div class="form-container">
-                    <h2>Contact us</h2>
-                    <form>
-                        <input type="text" placeholder="Name">
-                        <input type="text" placeholder="Last name">
-                        <input type="tel" placeholder="Phone">
-                        <input type="email" placeholder="Email">
-                        <textarea placeholder="Message"></textarea>
-                        <button type="submit">Enviar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <span>
-                © 2024 SpiderWeb
-            </span>
-            <div class="networks">
-                <a href="https://instagram.com/szmattii"><img src="assets/img/instagramLogo.svg"
-                        alt="Logo de instagram"></a>
-                <a href="https://x.com/szmatti"><img src="assets/img/xLogo.svg" alt="Logo de x"></a>
-                <a href="https://www.tiktok.com/@szmaatii"><img src="assets/img/tiktokLogo.svg"
-                        alt="Logo de tiktok"></a>
-            </div>
-        </div>
-    </footer>
-    <script src="assets/js/functions.js"></script>
+    <div class="toast" id="toast">guardado en este pequeño universo ♥</div>
+    <script>
+        const $ = s => document.querySelector(s); function toast(t) { const x = $('#toast'); x.textContent = t; x.classList.add('on'); setTimeout(() => x.classList.remove('on'), 2200) }
+        function hearts(n = 12) { for (let i = 0; i < n; i++) { setTimeout(() => { const h = document.createElement('span'); h.className = 'heart'; h.textContent = ['♥', '♡', '✳'][Math.floor(Math.random() * 3)]; h.style.left = (10 + Math.random() * 80) + 'vw'; h.style.top = (45 + Math.random() * 40) + 'vh'; h.style.fontSize = (15 + Math.random() * 24) + 'px'; document.body.appendChild(h); setTimeout(() => h.remove(), 1700) }, i * 70) } }
+        $('#enter').onclick = () => { hearts(8); $('#historia').scrollIntoView({ behavior: 'smooth' }); toast('bienvenida a nuestro mundo ♥') }; document.querySelectorAll('.memory').forEach(el => el.onclick = () => { $('.modal-card h3').textContent = el.querySelector('h3').textContent; $('.modal-card p').textContent = el.dataset.secret; $('#modal').classList.add('open') }); $('#close').onclick = () => $('#modal').classList.remove('open'); $('#modal').onclick = e => { if (e.target.id === 'modal') $('#modal').classList.remove('open') }; $('#openLetter').onclick = () => { const l = $('#letter'); l.classList.toggle('show'); $('#openLetter').textContent = l.classList.contains('show') ? 'cerrar la carta ↑' : 'abrir tu carta secreta ♥'; if (l.classList.contains('show')) hearts(10) }; $('#surprise').onclick = () => { $('#modal').classList.add('open'); $('.modal-card h3').textContent = 'Una última cosita…'; $('.modal-card p').textContent = 'Te quiero más de lo que entra en una página web. Fin del comunicado. ♥'; hearts(18) }; $('#moreHearts').onclick = () => { hearts(24); toast('un montón de amor enviado ♥') }; $('#songBtn').onclick = () => { let link = localStorage.getItem('mattAgussSong'); if (link) { window.open(link, '_blank', 'noopener'); $('#songStatus').textContent = 'abriendo su canción en otra pestaña ✳' } else { const input = prompt('Pegá el link de Spotify o YouTube de su canción:'); if (input && /^https?:\/\//i.test(input)) { localStorage.setItem('mattAgussSong', input); $('#songStatus').textContent = 'su canción ya está guardada ♥'; window.open(input, '_blank', 'noopener') } else if (input) toast('pegá un link válido para guardarlo') } }; $('#songEdit').onclick = () => { const input = prompt('Pegá el link de Spotify o YouTube:'); if (input && /^https?:\/\//i.test(input)) { localStorage.setItem('mattAgussSong', input); $('#songStatus').textContent = 'canción configurada ♥'; toast('canción guardada en este navegador') } }; $('#songBtn').addEventListener('click', () => { if (localStorage.getItem('mattAgussSong')) $('#vinyl').classList.add('playing') });
+        // Small keyboard easter egg: type "tequiero".
+        let keys = ''; document.addEventListener('keydown', e => { keys = (keys + e.key.toLowerCase()).slice(-8); if (keys === 'tequiero') { hearts(30); toast('secreto desbloqueado: te quiero ♥') } });
+    </script>
 </body>
 
 </html>
