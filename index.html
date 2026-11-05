@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0B0810">
+<title>Matías Suárez | Video Editor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --purple-dark:#681BAA;
+  --purple:#9025E8;
+  --lilac:#B875F4;
+  --lavender:#E5CEFA;
+  --light:#FAF5FF;
+  --black:#0B0810;
+  --gray:#A9A1B0;
+  --font:'DM Sans',sans-serif;
+  --display:'Syne',sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
+body { background:var(--black); color:white; font-family:var(--font); overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+section { padding:110px 8%; position:relative; }
+.container { max-width:1200px; margin:auto; }
+
+.eyebrow {
+  color:var(--lilac); text-transform:uppercase;
+  letter-spacing:3px; font-size:12px; font-weight:800;
+  margin-bottom:18px;
+}
+.section-title {
+  font-family:var(--display);
+  font-size:clamp(36px,5vw,65px);
+  line-height:1.05; letter-spacing:-3px; margin-bottom:25px;
+}
+.gradient-text {
+  background:linear-gradient(100deg,var(--purple),var(--lilac),var(--lavender));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.section-description { color:var(--gray); line-height:1.8; max-width:580px; font-size:16px; }
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:16px 25px; border-radius:40px; font-size:13px;
+  font-weight:800; transition:.35s; cursor:pointer;
+}
+.btn-primary {
+  background:linear-gradient(110deg,var(--purple-dark),var(--purple),var(--lilac));
+  color:white; box-shadow:0 8px 30px rgba(144,37,232,.25);
+}
+.btn-primary:hover { transform:translateY(-5px) scale(1.03); box-shadow:0 12px 35px rgba(184,117,244,.45); }
+.btn-outline { border:1px solid rgba(255,255,255,.3); color:white; }
+.btn-outline:hover { background:white; color:var(--black); }
+
+/* NAVEGACIÓN */
+header {
+  position:fixed; z-index:1000; width:100%; top:0;
+  padding:20px 8%; background:rgba(11,8,16,.82);
+  backdrop-filter:blur(18px); border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav { max-width:1200px; margin:auto; display:flex; justify-content:space-between; align-items:center; }
+.logo { font-family:var(--display); font-size:22px; font-weight:800; }
+.logo span,.footer-logo span { color:var(--lilac); }
+.nav-links { display:flex; gap:30px; align-items:center; }
+.nav-links a { font-size:13px; color:#D5CDDB; transition:.3s; }
+.nav-links a:hover { color:var(--lilac); }
+.nav-cta { padding:12px 20px; background:var(--purple); border-radius:30px; color:white!important; }
+.menu-toggle { display:none; background:none; color:white; border:0; font-size:27px; cursor:pointer; }
+
+/* PORTADA */
+.hero {
+  min-height:100vh; display:flex; align-items:center; padding-top:150px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 80% 35%,rgba(144,37,232,.2),transparent 40%),
+    radial-gradient(ellipse at 10% 80%,rgba(104,27,170,.15),transparent 35%),
+    var(--black);
+}
+.hero-content { max-width:1200px; margin:auto; width:100%; position:relative; z-index:2; }
+.hero-tag {
+  display:inline-flex; align-items:center; gap:10px; padding:10px 17px;
+  border:1px solid rgba(184,117,244,.4); border-radius:30px;
+  color:var(--lavender); font-size:12px; margin-bottom:30px;
+  animation:fadeUp .8s ease both;
+}
+.hero-tag:before {
+  content:""; width:7px; height:7px; border-radius:50%;
+  background:var(--lilac); box-shadow:0 0 12px var(--lilac);
+}
+.hero h1 {
+  font-family:var(--display); font-size:clamp(58px,10vw,112px);
+  line-height:.98; letter-spacing:-7px; max-width:950px;
+  animation:fadeUp .9s .1s ease both;
+}
+.hero h1 span { display:block; }
+.hero-description {
+  color:#B8AFBF; max-width:490px; line-height:1.8;
+  margin:30px 0; animation:fadeUp .9s .2s ease both;
+}
+.hero-buttons { display:flex; gap:15px; flex-wrap:wrap; animation:fadeUp .9s .3s ease both; }
+.hero-decoration {
+  position:absolute; width:440px; height:440px; border-radius:50%;
+  background:radial-gradient(circle,rgba(144,37,232,.35),rgba(104,27,170,.08) 50%,transparent 70%);
+  right:-100px; top:15%; animation:float 7s ease-in-out infinite;
+}
+.hero-decoration:after {
+  content:""; position:absolute; width:210px; height:210px;
+  border:1px solid rgba(184,117,244,.35); border-radius:50%; top:25%; left:20%;
+}
+
+/* SOBRE MÍ */
+.about { background:var(--light); color:var(--black); }
+.about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.about .section-description { color:#686070; }
+.about-card {
+  min-height:350px; border-radius:30px; padding:40px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  overflow:hidden; position:relative;
+  background:linear-gradient(140deg,var(--purple-dark),var(--purple),var(--lilac));
+  box-shadow:0 25px 60px rgba(104,27,170,.2); transition:.4s;
+}
+.about-card:hover { transform:rotate(-2deg) scale(1.02); }
+.about-card .big-number { font-family:var(--display); font-size:100px; line-height:1; font-weight:800; }
+.about-card p { font-size:18px; max-width:260px; line-height:1.5; }
+
+/* SERVICIOS */
+.services { background:var(--black); }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:55px; }
+.service-card {
+  border:1px solid rgba(184,117,244,.18);
+  background:linear-gradient(145deg,#17101E,#100D15);
+  border-radius:22px; padding:30px; min-height:245px;
+  transition:.4s; position:relative; overflow:hidden;
+}
+.service-card:before {
+  content:""; position:absolute; width:150px; height:150px;
+  border-radius:50%; background:rgba(144,37,232,.18);
+  filter:blur(55px); right:-70px; bottom:-70px; transition:.4s;
+}
+.service-card:hover { transform:translateY(-10px); border-color:var(--lilac); box-shadow:0 15px 40px rgba(144,37,232,.13); }
+.service-card:hover:before { transform:scale(1.8); }
+.service-icon { font-size:30px; margin-bottom:25px; display:block; }
+.service-card h3 { font-family:var(--display); font-size:21px; margin-bottom:12px; }
+.service-card p { color:var(--gray); font-size:13px; line-height:1.8; }
+
+/* PROCESO */
+.process { background:var(--purple-dark); overflow:hidden; }
+.process .eyebrow { color:var(--lavender); }
+.process .section-description { color:#E8D7F7; }
+.process-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:55px; }
+.process-step { padding-top:25px; border-top:1px solid rgba(255,255,255,.35); }
+.process-step span { font-family:var(--display); font-size:45px; font-weight:800; color:var(--lavender); }
+.process-step h3 { margin:18px 0 10px; font-size:18px; }
+.process-step p { color:#E2C9F5; font-size:13px; line-height:1.7; }
+
+/* PORTFOLIO REELS */
+.portfolio { background:var(--light); color:var(--black); }
+.portfolio .section-description { color:#686070; }
+.portfolio-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:20px; margin-top:50px; align-items:start;
+}
+.project {
+  background:white; border-radius:22px; overflow:hidden;
+  box-shadow:0 10px 35px rgba(40,10,60,.09); transition:.4s;
+}
+.project:hover { transform:translateY(-8px); box-shadow:0 20px 45px rgba(104,27,170,.17); }
+.reel-frame {
+  width:100%; aspect-ratio:9 / 16; overflow:hidden;
+  background:#1B1024; position:relative;
+}
+.reel-frame video {
+  display:block; width:100%; height:100%;
+  object-fit:cover; background:#1B1024;
+}
+.project-info { padding:17px; }
+.project-info h3 { font-family:var(--display); font-size:17px; margin-bottom:5px; }
+.project-info span { color:var(--purple); font-size:10px; font-weight:800; letter-spacing:1px; }
+
+/* TARIFAS */
+.pricing { background:var(--black); }
+.pricing-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:18px; margin-top:55px; align-items:stretch;
+}
+.price-card {
+  background:#151019; border:1px solid rgba(184,117,244,.2);
+  border-radius:25px; padding:32px 27px;
+  display:flex; flex-direction:column; transition:.4s; position:relative;
+}
+.price-card:hover { transform:translateY(-9px); border-color:var(--lilac); }
+.price-card.featured {
+  background:linear-gradient(150deg,#681BAA,#9025E8 65%,#B875F4);
+  border:0; box-shadow:0 15px 45px rgba(144,37,232,.25);
+}
+.popular {
+  position:absolute; top:18px; right:18px; font-size:10px;
+  text-transform:uppercase; letter-spacing:1px;
+  background:var(--lavender); color:var(--purple-dark);
+  padding:7px 11px; border-radius:30px; font-weight:800;
+}
+.price-card h3 { font-family:var(--display); font-size:23px; margin-bottom:12px; }
+.price { font-family:var(--display); font-size:44px; font-weight:800; margin:15px 0; }
+.price small { font-family:var(--font); font-size:13px; font-weight:500; }
+.price-card>p { color:#B9AFC2; font-size:13px; line-height:1.7; min-height:55px; }
+.price-card.featured>p { color:#F0E2FB; }
+.price-card ul { list-style:none; margin:25px 0 30px; flex:1; }
+.price-card li { padding:10px 0; font-size:13px; color:#D9D0E0; border-bottom:1px solid rgba(255,255,255,.08); }
+.price-card.featured li { color:white; }
+.price-card li:before { content:"✦"; color:var(--lilac); margin-right:10px; }
+.price-card.featured li:before { color:var(--lavender); }
+.price-card .btn { width:100%; }
+.price-card:not(.featured) .btn { border:1px solid rgba(184,117,244,.55); color:white; }
+.price-card:not(.featured) .btn:hover { background:var(--purple); border-color:var(--purple); }
+
+.custom-pack {
+  margin-top:22px; padding:35px; border-radius:25px;
+  background:linear-gradient(100deg,#20122E,#32154B);
+  border:1px solid rgba(184,117,244,.35);
+  display:flex; align-items:center; justify-content:space-between; gap:25px;
+}
+.custom-pack h3 { font-family:var(--display); font-size:25px; margin-bottom:8px; }
+.custom-pack p { color:#C6B4D5; font-size:14px; line-height:1.7; }
+
+/* PAGOS */
+.payment { background:var(--lavender); color:var(--black); }
+.payment-grid { display:grid; grid-template-columns:1fr 1fr; gap:25px; margin-top:45px; }
+.payment-card {
+  background:rgba(255,255,255,.65); border:1px solid rgba(104,27,170,.12);
+  padding:35px; border-radius:25px; transition:.3s;
+}
+.payment-card:hover { transform:translateY(-7px); }
+.payment-card h3 { font-family:var(--display); font-size:22px; margin-bottom:12px; }
+.payment-card p { color:#63576D; line-height:1.8; font-size:14px; }
+
+/* CONTACTO */
+.contact {
+  background:radial-gradient(ellipse at 80% 20%,rgba(144,37,232,.2),transparent 45%),var(--black);
+  text-align:center; padding-top:130px; padding-bottom:130px;
+}
+.contact .section-title { max-width:800px; margin:0 auto 25px; }
+.contact .section-description { margin:0 auto 35px; }
+.contact-buttons { display:flex; justify-content:center; flex-wrap:wrap; gap:14px; }
+.contact-email { color:var(--lavender); display:block; margin-top:25px; font-size:14px; transition:.3s; }
+.contact-email:hover { color:white; }
+.social-note { color:#A99DAF; font-size:12px; margin-top:12px; }
+
+/* PIE */
+footer { background:#070509; padding:30px 8%; border-top:1px solid rgba(255,255,255,.08); }
+.footer-content {
+  max-width:1200px; margin:auto; display:flex;
+  justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap;
+}
+footer p { color:#817788; font-size:12px; }
+.footer-logo { font-family:var(--display); font-weight:800; font-size:18px; }
+
+/* ANIMACIONES */
+.reveal { opacity:0; transform:translateY(35px); transition:opacity .8s ease,transform .8s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(35px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0) scale(1); }
+  50% { transform:translateY(-30px) scale(1.06); }
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ADAPTACIÓN A TABLETS Y CELULARES */
+@media(max-width:1000px) {
+  .portfolio-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .pricing-grid { grid-template-columns:repeat(2,1fr); }
+  .services-grid { grid-template-columns:repeat(2,1fr); }
+  .process-grid { grid-template-columns:repeat(2,1fr); row-gap:35px; }
+}
+@media(max-width:650px) {
+  section { padding:85px 6%; }
+  header { padding:17px 6%; }
+  .menu-toggle { display:block; }
+  .nav-links {
+    display:none; position:absolute; top:68px; left:0; width:100%;
+    background:#100B16; padding:25px 6%; flex-direction:column;
+    align-items:flex-start; border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .nav-links.active { display:flex; }
+  .hero { min-height:90vh; }
+  .hero h1 { letter-spacing:-4px; }
+  .hero-decoration { right:-240px; }
+  .about-grid,.payment-grid { grid-template-columns:1fr; }
+  .services-grid,.pricing-grid { grid-template-columns:1fr; }
+  .portfolio-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .process-grid { grid-template-columns:1fr 1fr; }
+  .custom-pack { flex-direction:column; align-items:flex-start; }
+  .project-info { padding:12px; }
+  .project-info h3 { font-size:14px; }
+  .project-info span { font-size:9px; }
+  .section-title { letter-spacing:-2px; }
+  .about-card { min-height:280px; }
+}
+@media(max-width:380px) {
+  .portfolio-grid { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#inicio" class="logo">MATÍAS<span>.</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#tarifas">Tarifas</a>
+      <a href="#contacto" class="nav-cta">Hablemos ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="inicio">
+  <div class="hero-decoration"></div>
+  <div class="hero-content container">
+    <div class="hero-tag">EDITOR DE VIDEO FREELANCE</div>
+    <h1>IDEAS QUE <span class="gradient-text">SE MUEVEN.</span></h1>
+    <p class="hero-description">
+      Transformo ideas en contenido audiovisual que conecta,
+      comunica y destaca. Edición creativa para marcas,
+      creadores y proyectos que quieren ir un paso más allá.
+    </p>
+    <div class="hero-buttons">
+      <a href="#portfolio" class="btn btn-primary">VER MIS TRABAJOS ↗</a>
+      <a href="#tarifas" class="btn btn-outline">VER TARIFAS</a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre-mi">
+  <div class="container about-grid">
+    <div class="reveal">
+      <div class="eyebrow">01 / SOBRE MÍ</div>
+      <h2 class="section-title">DETRÁS DE CADA VIDEO HAY UNA <span class="gradient-text">IDEA.</span></h2>
+      <p class="section-description">
+        Soy editor de video freelance y me apasiona transformar
+        ideas en piezas audiovisuales atractivas. Me enfoco en
+        crear contenido dinámico, cuidado y adaptado a la identidad
+        de cada marca.<br><br>
+        Mi objetivo es que cada edición tenga personalidad,
+        ritmo y un propósito claro.
+      </p>
+    </div>
+    <div class="about-card reveal">
+      <div class="big-number">01.</div>
+      <p>Creatividad, atención al detalle y edición con identidad propia.</p>
+      <strong>MATÍAS SUÁREZ — VIDEO EDITOR</strong>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">02 / QUÉ HAGO</div>
+      <h2 class="section-title">SERVICIOS PARA <span class="gradient-text">DESTACAR.</span></h2>
+      <p class="section-description">Contenido pensado para captar la atención, transmitir mensajes y darle personalidad a tu marca.</p>
+    </div>
+    <div class="services-grid">
+      <article class="service-card reveal"><span class="service-icon">🎬</span><h3>Edición de video</h3><p>Edición profesional, selección de tomas, ritmo, transiciones y narrativa visual para comunicar mejor tus ideas.</p></article>
+      <article class="service-card reveal"><span class="service-icon">📱</span><h3>Reels, TikTok y Shorts</h3><p>Videos verticales dinámicos, pensados para redes sociales y diseñados para captar la atención desde el primer segundo.</p></article>
+      <article class="service-card reveal"><span class="service-icon">✨</span><h3>Subtítulos y motion graphics</h3><p>Textos animados, títulos, elementos gráficos y efectos visuales que hacen que cada video destaque.</p></article>
+      <article class="service-card reveal"><span class="service-icon">🎧</span><h3>Diseño de sonido</h3><p>Música, efectos sonoros y ajustes de audio para conseguir una experiencia audiovisual más completa.</p></article>
+      <article class="service-card reveal"><span class="service-icon">🎨</span><h3>Carruseles y publicaciones</h3><p>Diseño de carruseles para Instagram y piezas gráficas para comunicar, informar y mantener una identidad visual coherente.</p></article>
+      <article class="service-card reveal"><span class="service-icon">🚀</span><h3>Contenido para marcas</h3><p>Adaptación de videos y piezas creativas a la identidad, objetivos y estilo de comunicación de cada negocio.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">03 / CÓMO TRABAJO</div>
+      <h2 class="section-title">SIMPLE. CLARO. <span style="color:var(--lavender)">CREATIVO.</span></h2>
+      <p class="section-description">Un proceso organizado para que trabajar juntos sea fácil.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal"><span>01</span><h3>Hablamos</h3><p>Conocemos tu idea, tu marca y el tipo de contenido que necesitás.</p></div>
+      <div class="process-step reveal"><span>02</span><h3>Planificamos</h3><p>Definimos el estilo, las referencias y los detalles del proyecto.</p></div>
+      <div class="process-step reveal"><span>03</span><h3>Editamos</h3><p>Trabajo en tu contenido cuidando cada detalle de la edición.</p></div>
+      <div class="process-step reveal"><span>04</span><h3>Entregamos</h3><p>Recibís el resultado final listo para publicar y compartir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">04 / PORTFOLIO</div>
+      <h2 class="section-title">TRABAJOS QUE HABLAN <span class="gradient-text">POR SÍ SOLOS.</span></h2>
+      <p class="section-description">Una selección de proyectos y ediciones para mostrar mi estilo y creatividad.</p>
+    </div>
+
+    <div class="portfolio-grid">
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 1.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 01</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 2.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 02</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 3.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 03</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 4.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 04</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 5.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 05</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 6.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 06</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+      <article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 7.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 07</h3><span>REEL / VIDEO EDITING</span></div>
+      </article><article class="project reveal">
+        <div class="reel-frame">
+          <video controls playsinline preload="metadata">
+            <source src="mistrabajos/video 8.mp4" type="video/mp4">
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+        <div class="project-info"><h3>Proyecto 08</h3><span>REEL / VIDEO EDITING</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="tarifas">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">05 / TARIFAS</div>
+      <h2 class="section-title">ELEGÍ TU PRÓXIMO <span class="gradient-text">PROYECTO.</span></h2>
+      <p class="section-description">Opciones flexibles según la cantidad de contenido que necesitás. Todos los packs pueden adaptarse a tu marca.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="price-card reveal">
+        <h3>One Video</h3><p>Ideal para probar el servicio o resolver una necesidad puntual.</p>
+        <div class="price">US$10</div>
+        <ul><li>1 video editado</li><li>Edición dinámica</li><li>Música y sonido</li><li>Subtítulos básicos</li><li>Formato para redes</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20consultar%20por%20el%20pack%20One%20Video." class="btn">ELEGIR PACK ↗</a>
+      </article>
+
+      <article class="price-card reveal">
+        <h3>Pack Weekly</h3><p>Para mantener tus redes activas con contenido frecuente.</p>
+        <div class="price">US$40</div>
+        <ul><li>5 videos</li><li>Edición dinámica</li><li>Subtítulos</li><li>Música y efectos</li><li>Formato vertical</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20consultar%20por%20el%20pack%20Weekly." class="btn">ELEGIR PACK ↗</a>
+      </article>
+
+      <article class="price-card featured reveal">
+        <span class="popular">MÁS ELEGIDO</span>
+        <h3>Pack Creator</h3><p>Una solución para creadores y marcas que necesitan constancia.</p>
+        <div class="price">US$100</div>
+        <ul><li>12 videos editados</li><li>Subtítulos y animaciones</li><li>Música y efectos</li><li>Edición personalizada</li><li>Contenido para redes</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20consultar%20por%20el%20pack%20Creator." class="btn btn-outline">ELEGIR PACK ↗</a>
+      </article>
+
+      <article class="price-card reveal">
+        <h3>Pack Pro</h3><p>Para proyectos que necesitan un volumen mayor de contenido.</p>
+        <div class="price">US$140</div>
+        <ul><li>16 videos editados</li><li>Subtítulos y motion graphics</li><li>Diseño sonoro</li><li>Estilo visual personalizado</li><li>Contenido para redes</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20consultar%20por%20el%20pack%20Pro." class="btn">ELEGIR PACK ↗</a>
+      </article>
+
+      <article class="price-card reveal">
+        <h3>Diseño de contenido</h3><p>Para marcas que también necesitan piezas gráficas.</p>
+        <div class="price">A medida</div>
+        <ul><li>Carruseles de Instagram</li><li>Publicaciones gráficas</li><li>Diseño personalizado</li><li>Adaptación de marca</li><li>Presupuesto según proyecto</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20consultar%20por%20dise%C3%B1o%20de%20contenido." class="btn">CONSULTAR ↗</a>
+      </article>
+
+      <article class="price-card reveal">
+        <h3>Pack personalizado</h3><p>¿Tenés otra idea? Creamos una propuesta que se adapte a vos.</p>
+        <div class="price">A medida</div>
+        <ul><li>Cantidad de videos flexible</li><li>Servicios combinados</li><li>Contenido para tu marca</li><li>Estilo a elección</li><li>Presupuesto personalizado</li></ul>
+        <a href="https://wa.me/59895377864?text=Hola%2C%20quiero%20armar%20un%20pack%20personalizado." class="btn">ARMAR MI PACK ↗</a>
+      </article>
+    </div>
+
+    <div class="custom-pack reveal">
+      <div><h3>¿Tenés un proyecto diferente?</h3><p>Contame qué necesitás y armamos una propuesta a tu medida.</p></div>
+      <a href="https://wa.me/59895377864" class="btn btn-primary">HABLEMOS ↗</a>
+    </div>
+  </div>
+</section>
+
+<section class="payment">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">06 / PAGOS Y CONDICIONES</div>
+      <h2 class="section-title">TRANSPARENCIA EN CADA <span class="gradient-text">PROYECTO.</span></h2>
+    </div>
+
+    <div class="payment-grid">
+      <div class="payment-card reveal">
+        <h3>💳 Forma de pago</h3>
+        <p>
+          Para comenzar a trabajar se requiere un anticipo mínimo
+          del 50% del valor total del proyecto.
+          Si preferís abonar un porcentaje mayor, como el 60%,
+          el 70% o incluso el 100% por adelantado, también es
+          totalmente válido.<br><br>
+          Trabajo con PayPal para facilitar los pagos.
+        </p>
+      </div>
+
+      <div class="payment-card reveal">
+        <h3>🤝 Trabajo personalizado</h3>
+        <p>
+          Cada proyecto tiene sus propias necesidades.
+          Antes de comenzar coordinamos el estilo, los plazos,
+          las entregas y todos los detalles para que el resultado
+          sea exactamente lo que buscás.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="container reveal">
+    <div class="eyebrow">07 / CONTACTO</div>
+    <h2 class="section-title">¿TENÉS UNA IDEA? <span class="gradient-text">HAGÁMOSLA REALIDAD.</span></h2>
+    <p class="section-description">
+      Si tenés un proyecto en mente, querés mejorar tu contenido
+      o simplemente querés conocer más sobre mis servicios,
+      escribime. ¡Estoy listo para trabajar!
+    </p>
+
+    <div class="contact-buttons">
+      <a href="https://wa.me/59895377864" class="btn btn-primary">WHATSAPP ↗</a>
+      <a href="https://instagram.com/szmattii" target="_blank" rel="noopener noreferrer" class="btn btn-outline">INSTAGRAM ↗</a>
+    </div>
+
+    <a href="mailto:TU_CORREO_COMPLETO" class="contact-email">x6suarezhd</a>
+    <p class="social-note">Instagram: @szmattii · WhatsApp: 095 377 864</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">MATÍAS<span>.</span></div>
+    <p>© 2026 Matías Suárez · Video Editor Freelance</p>
+    <p>CREATIVIDAD EN MOVIMIENTO ✳</p>
+  </div>
+</footer>
+
+<script>
+// Menú móvil
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('active');
+    menuToggle.textContent = '☰';
+  });
+});
+
+// Animaciones al aparecer en pantalla
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+
+// No reproducir dos videos al mismo tiempo
+const videos = document.querySelectorAll('video');
+
+videos.forEach(video => {
+  video.addEventListener('play', () => {
+    videos.forEach(otherVideo => {
+      if (otherVideo !== video) otherVideo.pause();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
